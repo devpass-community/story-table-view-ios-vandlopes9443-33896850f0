@@ -6,6 +6,7 @@ final class MainView: UIView {
        
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.dataSource = self
         return view
     }()
     
@@ -29,6 +30,19 @@ extension MainView {
         
         self.items = items
         tableView.reloadData()
+    }
+}
+
+extension MainView: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+        cell.textLabel?.text = items[indexPath.row].description
+        return cell
     }
 }
 
